@@ -55,7 +55,7 @@ int main()
 		}
 		else if (discriminant != 0) // Quadratic has two roots
 		{
-			printf("sFirst root: %lf\n", (double)((-b + sqrt(discriminant)) / (2 * a)));
+			printf("First root: %lf\n", (double)((-b + sqrt(discriminant)) / (2 * a)));
 			printf("Second root: %lf\n", (double)((-b - sqrt(discriminant)) / (2 * a)));
 		}
 		else // Quadratic has multiplicity of 2
