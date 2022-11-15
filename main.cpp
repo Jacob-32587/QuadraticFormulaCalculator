@@ -16,6 +16,8 @@ int main()
 	long double b = 0.0L;
 	long double c = 0.0L;
 
+	long double discriminant = 0.0L;
+
 	while (1)
 	{
 		a = promptAndGet("a = ", buff);
@@ -42,6 +44,32 @@ int main()
 		break;
 	} // User input collection loop
 
+	discriminant = (b * b) - (4 * a * c);
+
+	if (a != 0) // Equation is quadratic
+	{
+		if (discriminant < 0) // Imaginary roots
+		{
+			printf("First root: %lfi\n", (double)((-b + sqrt(discriminant * -1.0L)) / (2.0L * a)));
+			printf("Second root: %lfi\n", (double)((-b - sqrt(discriminant * -1.0L)) / (2.0L * a)));
+		}
+		else if (discriminant != 0) // Quadratic has two roots
+		{
+			printf("sFirst root: %lf\n", (double)((-b + sqrt(discriminant)) / (2 * a)));
+			printf("Second root: %lf\n", (double)((-b - sqrt(discriminant)) / (2 * a)));
+		}
+		else // Quadratic has multiplicity of 2
+			printf("Multiplicity of 2, singular root is: %lf\n", (double)(-b / (2 * a)));
+	}
+	else if (b != 0) // Equation is linear
+	{
+		printf("Singular root is: %lf", (double)(-c / b));
+	}
+	else // Not an equation
+	{
+		printf("You've only entered a constant value...");
+	}
+
 	return 0;
 }
 
@@ -50,17 +78,15 @@ int main()
 
 long double promptAndGet(const char *message, char *buff)
 {
-	long double retVal = 0.0L;
+	long double retVal = 0.0L; // Hold value that may be returned
 
-	printf("%s", message);
+	printf("%s", message); // Prompt user to enter data
 
 	if (fgets(buff, QFC_BUFF_SIZE, stdin) != nullptr)
 	{
-		retVal = strtold(buff, nullptr);
+		retVal = strtold(buff, nullptr); // Convert the input string into a long double
 
-		printf("%d", onlyZeroF(buff));
-
-		if (retVal == 0.0 && !onlyZeroF(buff))
+		if (retVal == 0.0 && !onlyZeroF(buff)) // Check if strtold() could not convert the input
 			return INFINITY;
 		else
 			return retVal;
